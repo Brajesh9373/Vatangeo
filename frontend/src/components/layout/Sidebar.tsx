@@ -139,13 +139,6 @@ export default function Sidebar({
         >
           {isDark ? <Sun size={16} /> : <Moon size={16} />}
         </button>
-        <button
-          onClick={onConfigToggle}
-          className={['p-2 rounded-lg transition-colors', isDark ? 'text-[var(--color-dark-muted)] hover:bg-[var(--color-dark-hover-strong)]' : 'text-[var(--color-light-muted)] hover:bg-[var(--color-light-hover)]'].join(' ')}
-          title="Configuration"
-        >
-          <Settings size={16} />
-        </button>
       </div>
     </aside>
   );
