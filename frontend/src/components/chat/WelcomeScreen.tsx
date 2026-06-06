@@ -9,9 +9,6 @@ import {
   Search,
   ArrowRight,
   MessageSquare,
-  Database,
-  Cpu,
-  HardDrive,
   Zap,
   CheckCircle2,
   Clock,
@@ -78,50 +75,6 @@ const SUGGESTED_PROMPTS: string[] = [
   "What's the difference between 2240 and 2240-RG?",
   'Show me the 1240-RG specs',
   'I need a quote for 4 servers with 256GB RAM and 4TB storage',
-];
-
-interface Scenario {
-  id: string;
-  icon: typeof Sparkles;
-  label: string;
-  desc: string;
-  prompt: string;
-  accentVar: string;
-}
-
-const SCENARIOS: Scenario[] = [
-  {
-    id: 'ai',
-    icon: Sparkles,
-    label: 'AI / ML',
-    desc: 'GPU-ready for training & inference',
-    prompt: 'Recommend a Vantageo server for AI training with GPUs',
-    accentVar: 'var(--color-brand)',
-  },
-  {
-    id: 'db',
-    icon: Database,
-    label: 'Database',
-    desc: 'High memory, fast storage',
-    prompt: 'I need a server for a high-throughput PostgreSQL database',
-    accentVar: 'var(--color-link)',
-  },
-  {
-    id: 'edge',
-    icon: Cpu,
-    label: 'Edge / Branch',
-    desc: 'Compact for remote sites',
-    prompt: 'Show me compact Vantageo servers for a branch office',
-    accentVar: 'var(--color-success)',
-  },
-  {
-    id: 'storage',
-    icon: HardDrive,
-    label: 'Storage Heavy',
-    desc: 'Many bays, lots of capacity',
-    prompt: 'I need a server with lots of drive bays for 200TB of storage',
-    accentVar: 'var(--color-accent-hover)',
-  },
 ];
 
 export default function WelcomeScreen({ onPrompt, onFindByNeed, onNavigate, onLoadSession }: Props) {
@@ -243,48 +196,7 @@ export default function WelcomeScreen({ onPrompt, onFindByNeed, onNavigate, onLo
               ))}
             </div>
           </>
-        ) : (
-          <>
-            <SectionLabel
-              label="Explore a scenario"
-              isDark={isDark}
-              className="mt-12 self-start"
-            />
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full mt-3">
-              {SCENARIOS.map((scenario) => (
-                <button
-                  key={scenario.id}
-                  onClick={() => onPrompt(scenario.prompt)}
-                  className={[
-                    'group relative flex flex-col gap-2 p-4 rounded-xl border text-left overflow-hidden',
-                    'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md',
-                    surface,
-                  ].join(' ')}
-                >
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    style={{
-                      background: `radial-gradient(circle at top left, ${scenario.accentVar}11, transparent 70%)`,
-                    }}
-                  />
-                  <div
-                    className="relative w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                    style={{
-                      background: `color-mix(in srgb, ${scenario.accentVar} 12%, transparent)`,
-                      color: scenario.accentVar,
-                    }}
-                  >
-                    <scenario.icon size={18} />
-                  </div>
-                  <div className="relative">
-                    <div className={`text-sm font-semibold ${text}`}>{scenario.label}</div>
-                    <div className={`text-[11px] mt-0.5 ${muted}`}>{scenario.desc}</div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+        ) : null}
 
         <div className={`mt-12 text-[11px] ${muted} flex items-center gap-1.5`}>
           <CheckCircle2 size={11} className="text-[var(--color-success)]" />
