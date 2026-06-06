@@ -28,9 +28,9 @@ PROVIDER_CONFIGS: dict[str, dict[str, Any]] = {
         'extra_fields': {'chat_template_kwargs': {'thinking': False}},
     },
     'commandcode': {
-        'url': 'https://api.openai.com/v1/chat/completions',
-        'model': 'gpt-4o-mini',
-        'key_env': 'OPENAI_API_KEY',
+        'url': 'https://api.commandcode.ai/provider/v1/chat/completions',
+        'model': 'deepseek/deepseek-v4-flash',
+        'key_env': 'CC_LLM_API_KEY',
     },
 }
 DEFAULT_PROVIDER = 'commandcode'
@@ -71,7 +71,15 @@ def _api_key(cfg: dict, provider: str, prov: dict) -> str:
     if not key:
         key = os.environ.get(prov['key_env'], '')
     if not key and provider == 'commandcode':
-        key = os.environ.get('CC_LLM_API_KEY', '')
+        # Commandcode docs use CMD_API_KEY; we also accept CC_LLM_API_KEY
+        # (our historical name) and OPENAI_API_KEY (any OpenAI-compat key)
+        # so the same code works against any OpenAI-shaped provider.
+        key = (
+            os.environ.get('CMD_API_KEY')
+            or os.environ.get('CC_LLM_API_KEY')
+            or os.environ.get('OPENAI_API_KEY')
+            or ''
+        )
     return key or ''
 
 

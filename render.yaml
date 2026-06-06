@@ -1,17 +1,16 @@
 # Render Blueprint — defines the free web service.
-# Two ways to apply this:
-#   1. Connect your GitHub repo to Render and select "Apply from render.yaml"
-#      (the dashboard reads this file and provisions the service).
-#   2. Use the Render CLI: `render blueprint launch`.
+# NOTE: Render restricted Blueprint/Infra-as-Code to paid plans, so for
+# the free tier you must create the Web Service manually (New + → Web
+# Service) and copy the env vars below into the Environment section.
+# This file is still useful as a reference + for future paid-plan use.
 #
-# After the service is created, set the secrets in the Render dashboard
-# (Environment → Add Secret). API keys marked `sync: false` are NOT
-# committed to git — they live in Render's secret store.
+# Provider: commandcode (OpenAI-compatible)
+# Endpoint: https://api.commandcode.ai/provider/v1/chat/completions
+# Model:    deepseek/deepseek-v4-flash
+# Key env:  CC_LLM_API_KEY (also accepts CMD_API_KEY, OPENAI_API_KEY)
 #
-# Required secrets to add manually:
-#   NVIDIA_API_KEY     — your NVIDIA NIM API key (or OPENAI_API_KEY for
-#                        commandcode provider; the env var name follows
-#                        the provider in VANTAGEO_LLM_PROVIDER)
+# Required secrets to add manually in Render dashboard:
+#   CC_LLM_API_KEY     — your commandcode API key (cmd-...)
 
 services:
   - type: web
@@ -38,14 +37,16 @@ services:
       - key: VANTAGEO_DATA_BACKEND
         value: json
       - key: VANTAGEO_LLM_PROVIDER
-        value: nvidia
+        value: commandcode
       - key: VANTAGEO_LLM_MODEL
-        value: meta/llama-3.3-70b-instruct
+        value: deepseek/deepseek-v4-flash
+      - key: CC_LLM_ENDPOINT
+        value: https://api.commandcode.ai/provider/v1/chat/completions
       - key: CORS_ORIGINS
         value: "*"
       - key: VANTAGEO_LOG_JSON
         value: "0"
 
       # --- Secrets (sync: false means set in Render dashboard) ---
-      - key: NVIDIA_API_KEY
+      - key: CC_LLM_API_KEY
         sync: false
