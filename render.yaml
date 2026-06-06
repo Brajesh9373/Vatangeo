@@ -4,13 +4,13 @@
 # Service) and copy the env vars below into the Environment section.
 # This file is still useful as a reference + for future paid-plan use.
 #
-# Provider: commandcode (OpenAI-compatible)
-# Endpoint: https://api.commandcode.ai/provider/v1/chat/completions
-# Model:    deepseek/deepseek-v4-flash
-# Key env:  CC_LLM_API_KEY (also accepts CMD_API_KEY, OPENAI_API_KEY)
+# Provider: NVIDIA NIM
+# Endpoint: https://integrate.api.nvidia.com/v1/chat/completions (default)
+# Model:    deepseek-ai/deepseek-v4-pro
+# Key env:  NVIDIA_API_KEY
 #
 # Required secrets to add manually in Render dashboard:
-#   CC_LLM_API_KEY     — your commandcode API key (cmd-...)
+#   NVIDIA_API_KEY     — your NVIDIA NIM API key (nvapi-...)
 
 services:
   - type: web
@@ -37,16 +37,14 @@ services:
       - key: VANTAGEO_DATA_BACKEND
         value: json
       - key: VANTAGEO_LLM_PROVIDER
-        value: commandcode
+        value: nvidia
       - key: VANTAGEO_LLM_MODEL
-        value: deepseek/deepseek-v4-flash
-      - key: CC_LLM_ENDPOINT
-        value: https://api.commandcode.ai/provider/v1/chat/completions
+        value: deepseek-ai/deepseek-v4-pro
       - key: CORS_ORIGINS
         value: "*"
       - key: VANTAGEO_LOG_JSON
         value: "0"
 
       # --- Secrets (sync: false means set in Render dashboard) ---
-      - key: CC_LLM_API_KEY
+      - key: NVIDIA_API_KEY
         sync: false

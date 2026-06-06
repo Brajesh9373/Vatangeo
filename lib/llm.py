@@ -33,7 +33,7 @@ PROVIDER_CONFIGS: dict[str, dict[str, Any]] = {
         'key_env': 'CC_LLM_API_KEY',
     },
 }
-DEFAULT_PROVIDER = 'commandcode'
+DEFAULT_PROVIDER = 'nvidia'
 
 # HTTP status codes that warrant a retry on the synchronous path.
 _RETRYABLE_STATUS = {408, 425, 429, 500, 502, 503, 504}
