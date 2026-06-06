@@ -459,16 +459,14 @@ async def health():
 # ---------- STATIC FRONTEND ----------
 
 os.makedirs(FRONTEND, exist_ok=True)
-if os.path.isdir(os.path.join(REACT_DIST, "assets")):
-    APP.mount("/assets", StaticFiles(directory=os.path.join(REACT_DIST, "assets")), name="assets")
-
-
-@APP.get("/")
-async def root():
-    react_index = os.path.join(REACT_DIST, "index.html")
-    if os.path.exists(react_index):
-        return FileResponse(react_index)
-    return FileResponse(os.path.join(FRONTEND, "index.html"))
+if os.path.isdir(REACT_DIST):
+    # Mount the entire build output at root so `/logo.webp`, `/favicon.ico`,
+    # and any other top-level files in `public/` are served. `html=True`
+    # makes Starlette serve `index.html` for `/` and fall back to it for
+    # any unknown path (SPA routing — our app uses useState, not URL
+    # routes, so this fallback is benign). API routes are registered
+    # above this mount and take precedence for `/api/...` paths.
+    APP.mount("/", StaticFiles(directory=REACT_DIST, html=True), name="frontend")
 
 
 # ---------- RUN ----------
