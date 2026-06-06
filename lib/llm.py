@@ -48,13 +48,28 @@ _NONSTREAM_TIMEOUT = 60.0
 
 
 def _load_config(config_path) -> dict:
+    """Resolve LLM config. Order of precedence:
+    1. JSON file at `config_path` (typically `<repo>/config.json` on
+       Render, or `<parent-of-repo>/config.json` on local dev).
+    2. Environment variables: VANTAGEO_LLM_PROVIDER, VANTAGEO_LLM_MODEL.
+    3. Provider defaults (PROVIDER_CONFIGS[provider]['model']).
+    The model field is intentionally left empty in the no-file fallback
+    so `_resolve` falls through to the provider's bundled default.
+    """
     if config_path and os.path.isfile(config_path):
         try:
             with open(config_path, 'r') as f:
                 return json.load(f)
         except (OSError, json.JSONDecodeError) as e:
             LOG.warning('Failed to read config at %s: %s', config_path, e)
-    return {'provider': DEFAULT_PROVIDER, 'model': 'deepseek-chat', 'api_key': ''}
+    # No file: return env-var-derived values where set, empty otherwise.
+    # `_resolve` and `_api_key` will fill in the provider's defaults
+    # (PROVIDER_CONFIGS[provider]['model']) for any missing field.
+    return {
+        'provider': os.environ.get('VANTAGEO_LLM_PROVIDER', DEFAULT_PROVIDER),
+        'model': os.environ.get('VANTAGEO_LLM_MODEL', ''),
+        'api_key': '',
+    }
 
 
 def _resolve(cfg: dict) -> tuple[str, dict, str, str]:

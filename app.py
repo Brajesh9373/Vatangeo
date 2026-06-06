@@ -136,7 +136,7 @@ def load_config() -> dict:
             LOG.warning("Config at %s unreadable: %s — falling back to env", path, e)
             break
     provider = os.environ.get("VANTAGEO_LLM_PROVIDER", DEFAULT_PROVIDER)
-    model = os.environ.get("VANTAGEO_LLM_MODEL", "deepseek-chat")
+    model = os.environ.get("VANTAGEO_LLM_MODEL", "")
     api_key = os.environ.get(
         "NVIDIA_API_KEY" if provider == "nvidia" else "OPENAI_API_KEY", ""
     )
