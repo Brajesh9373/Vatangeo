@@ -57,7 +57,7 @@ function ProductCardBase({ product, isDark, onGetQuote }: Props) {
             <span className={valueCls}>{product.memory_type}</span>
           </div>
         ) : null}
-        {product.max_tdp_w != null ? (
+        {product.max_tdp_w != null && product.max_tdp_w > 0 ? (
           <div className={labelCls}>
             <span className="block text-[10px] uppercase tracking-wider mb-0.5">Max TDP</span>
             <span className={valueCls}>{product.max_tdp_w}W</span>

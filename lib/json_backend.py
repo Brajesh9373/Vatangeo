@@ -158,7 +158,7 @@ def tool_list_models() -> list[dict]:
             "model": canonical,
             "form_factor": ff,
             "ff_detail": ff.split(" ")[0] if ff else "",
-            "max_tdp_w": proc.get("max_tdp_w", 0) if isinstance(proc, dict) else 0,
+            "max_tdp_w": proc.get("max_tdp_w") if isinstance(proc, dict) else None,
             "dimm_slots": mem.get("dimm_slots", 0) if isinstance(mem, dict) else 0,
             "memory_type": mem.get("memory_type", "") if isinstance(mem, dict) else "",
         })
