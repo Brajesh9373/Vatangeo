@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+/* ===== Vantageo Design Tokens ===== */
+@theme {
+  /* --- Brand red (#FF0000) — primary interactive color --- */
+  --color-brand: #FF0000;
+  --color-brand-hover: #CC0000;
+  --color-brand-subtle: rgba(255, 0, 0, 0.06);
+  --color-brand-muted: rgba(255, 0, 0, 0.12);
+
+  /* --- Secondary accent (#BBD5DA) — supporting, cards, borders --- */
+  --color-accent: #BBD5DA;
+  --color-accent-hover: #A0C0C5;
+  --color-accent-subtle: rgba(187, 213, 218, 0.08);
+  --color-accent-muted: rgba(187, 213, 218, 0.15);
+
+  /* --- Semantic states --- */
+  --color-error: #FF0000;
+  --color-error-subtle: rgba(255, 0, 0, 0.08);
+  --color-success: #2E7D32;
+  --color-success-subtle: rgba(46, 125, 50, 0.08);
+  --color-warning: #B8860B;
+
+  /* --- Link --- */
+  --color-link: #3A8FA0;
+
+  /* --- Placeholder --- */
+  --color-placeholder: #9CA3AF;
+
+  /* --- Dark mode --- */
+  --color-dark-bg: #121212;
+  --color-dark-surface: #1E1E1E;
+  --color-dark-border: #2A2A2A;
+  --color-dark-muted: #8B949E;
+  --color-dark-text: #F8F9FA;
+  --color-dark-hover: rgba(255, 255, 255, 0.05);
+  --color-dark-hover-strong: rgba(255, 255, 255, 0.10);
+
+  /* --- Light mode --- */
+  --color-light-bg: #F5F5F5;
+  --color-light-surface: #DFF1F1;
+  --color-light-elevated: #FFFFFF;
+  --color-light-border: #D0E0E3;
+  --color-light-border-active: #BBD5DA;
+  --color-light-muted: #7A8F93;
+  --color-light-text: #2A3A3D;
+  --color-light-text-soft: #5A6A6D;
+  --color-light-hover: rgba(0, 0, 0, 0.05);
+
+  /* --- Typography --- */
+  --font-vanta: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ===== Base ===== */
+@layer base {
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-vanta);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ===== Scrollbar ===== */
+.custom-scroll::-webkit-scrollbar { width: 5px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-light-border);
+  border-radius: 3px;
+}
+.dark .custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-dark-border);
+}
+
+/* ===== Animations ===== */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse-accent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-slide-up { animation: slide-up 0.3s ease-out; }
+.animate-fade-in { animation: fade-in 0.2s ease-out; }
+.animate-scale-in { animation: scale-in 0.2s ease-out; }
+.animate-pulse-accent { animation: pulse-accent 2s ease-in-out infinite; }
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+.animate-blink { animation: blink 1.4s infinite; }
+.animate-blink-delay-1 { animation-delay: 0.2s; }
+.animate-blink-delay-2 { animation-delay: 0.4s; }
+
+/* ===== Hero glow (home screen) ===== */
+@keyframes hero-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.95; transform: scale(1.08); }
+}
+@keyframes hero-pulse-soft {
+  0%, 100% { opacity: 0.35; transform: scale(0.96); }
+  50%      { opacity: 0.6;  transform: scale(1.04); }
+}
+@keyframes hero-orbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-hero-pulse     { animation: hero-pulse 5.5s ease-in-out infinite; }
+.animate-hero-pulse-soft{ animation: hero-pulse-soft 7s ease-in-out infinite; }
+.animate-hero-orbit     { animation: hero-orbit 24s linear infinite; }
+
+/* ===== Home screen aurora (subtle red + blue background) ===== */
+@keyframes aurora-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(8%, 6%) scale(1.05); }
+  66%      { transform: translate(-4%, -3%) scale(0.96); }
+}
+@keyframes aurora-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-7%, 5%) scale(0.96); }
+  66%      { transform: translate(5%, -4%) scale(1.04); }
+}
+@keyframes aurora-3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-48%, -52%) scale(1.06); }
+}
+@keyframes aurora-4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(6%, -5%) scale(1.08); }
+}
+@keyframes conic-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.animate-aurora-1     { animation: aurora-1 22s ease-in-out infinite; }
+.animate-aurora-2     { animation: aurora-2 26s ease-in-out infinite; }
+.animate-aurora-3     { animation: aurora-3 30s ease-in-out infinite; }
+.animate-aurora-4     { animation: aurora-4 24s ease-in-out infinite; }
+.animate-conic-rotate { animation: conic-rotate 80s linear infinite; }
+
+/* ===== Form: hide native number-input spinners (stepper buttons replace them) ===== */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ===== Print: receipt-only view ===== */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html, body, #root {
+    height: auto;
+    background: white !important;
+  }
+
+  /* Hide everything by default; the receipt is the only artifact printed. */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Reveal just the receipt card and its descendants. */
+  .receipt-card,
+  .receipt-card * {
+    visibility: visible;
+  }
+
+  .receipt-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .receipt-card *,
+  .receipt-card {
+    color: black !important;
+    background: white !important;
+  }
+
+  .no-print { display: none !important; }
+
+  /* Force all backgrounds to print as white (avoids Chrome printing dark surfaces). */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ===== Print: comparison view (full layout, no chrome) ===== */
+@media print {
+  aside,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    overflow: visible !important;
+  }
+
+  /* Compact the table for paper. */
+  table {
+    font-size: 10px !important;
+  }
+
+  th, td {
+    padding: 4px 8px !important;
+  }
+}

@@ -1,0 +1,53 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Node / frontend ----
+node_modules/
+frontend/dist/
+frontend/node_modules/
+frontend/.vite/
+
+# ---- Vantageo runtime / data ----
+config.json
+.env
+.env.local
+.DS_Store
+*.log
+logs/
+
+# ---- Vantageo project artifacts ----
+# Big/binary sources not needed for the deployed app
+data/
+output/
+plans/
+New folder/
+vantageo_training_dataset.json
+json_formate.zip
+
+# ---- Legacy vendored JS libs (kept on disk for reference, not built) ----
+lib/bindings/
+lib/tom-select/
+lib/vis-9.1.2/
+
+# ---- Legacy vision doc (kept for context, not relevant to the agent) ----
+AGENT.md
+CLAUDE.md
+
+# ---- IDE / editor ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- Test artifacts ----
+.pytest_cache/
+.coverage
+htmlcov/

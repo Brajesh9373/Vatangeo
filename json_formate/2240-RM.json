@@ -1,0 +1,358 @@
+{
+  "product": "Vantageo 2240-RM",
+  "form_factor": "2U Rack Server",
+  "dimensions": {
+    "width_mm": 438,
+    "height_mm": 87,
+    "depth_mm": 770,
+    "width_in": 17.2,
+    "height_in": 3.4,
+    "depth_in": 30.3
+  },
+  "processor": {
+    "families": [
+      "Dual 5th Generation Intel Xeon Scalable Processors",
+      "Dual 4th Generation Intel Xeon Scalable Processors"
+    ],
+    "max_tdp_w": 350
+  },
+  "chipset": "Intel C741 Chipset",
+  "memory": {
+    "dimm_slots": 32,
+    "memory_type": "DDR5",
+    "channels": "16",
+    "dpc": "2DPC",
+    "supported_modules": [
+      "RDIMM",
+      "3DS-RDIMM"
+    ],
+    "max_capacity_per_dimm": {
+      "RDIMM": "96 GB",
+      "3DS_RDIMM": "256 GB"
+    },
+    "max_frequency": {
+      "5th_gen_xeon": {
+        "1DPC": "5600 MT/s",
+        "2DPC": "4400 MT/s"
+      },
+      "4th_gen_xeon": {
+        "1DPC": "4800 MT/s",
+        "2DPC": "4400 MT/s"
+      }
+    }
+  },
+  "storage": {
+    "drive_bays": 12,
+    "drive_type": "2.5-inch / 3.5-inch Hybrid Hot-Swap",
+    "supported_interfaces": [
+      "SATA 3.0",
+      "SAS",
+      "U.2 PCIe 4.0 NVMe"
+    ],
+    "sas_note": "SAS Controller Required for SAS Device Support"
+  },
+  "internal_storage": {
+    "m2_slots": 2,
+    "key_type": "M-Key",
+    "interface": "PCIe 3.0 x2",
+    "source": "PCH",
+    "supported_sizes": [
+      "2280",
+      "22110"
+    ]
+  },
+  "raid": {
+    "controller": "Intel SATA RAID",
+    "supported_levels": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 10"
+    ],
+    "vroc_header": 1,
+    "vroc_supports": "Intel VROC Key",
+    "external_controllers": [
+      {
+        "cache": "2 GB",
+        "interface": "PCIe SAS RAID",
+        "speed": "12 Gbps",
+        "battery_backup": true,
+        "supported_levels": [
+          "RAID 0",
+          "RAID 1",
+          "RAID 5",
+          "RAID 6",
+          "RAID 10",
+          "RAID 50",
+          "RAID 60"
+        ]
+      },
+      {
+        "cache": "4 GB",
+        "interface": "PCIe SAS RAID",
+        "speed": "12 Gbps",
+        "battery_backup": true,
+        "supported_levels": [
+          "RAID 0",
+          "RAID 1",
+          "RAID 5",
+          "RAID 6",
+          "RAID 10",
+          "RAID 50",
+          "RAID 60"
+        ]
+      },
+      {
+        "cache": "8 GB",
+        "interface": "PCIe SAS RAID",
+        "speed": "12 Gbps",
+        "battery_backup": true,
+        "supported_levels": [
+          "RAID 0",
+          "RAID 1",
+          "RAID 5",
+          "RAID 6",
+          "RAID 10",
+          "RAID 50",
+          "RAID 60"
+        ]
+      }
+    ],
+    "features": [
+      "Online Capacity Expansion",
+      "Online RAID Level Migration",
+      "Fast Initialization",
+      "Background Consistency Check",
+      "S.M.A.R.T Support",
+      "Global Hot Spare",
+      "Dedicated Hot Spare",
+      "Revertible Hot Spare",
+      "Automatic Rebuild",
+      "Health Monitoring",
+      "Error Alerts",
+      "Multi RAID Array Support"
+    ],
+    "management_tools": [
+      "RAID Manager",
+      "Command Line Interface",
+      "BIOS Configuration Utility"
+    ]
+  },
+  "expansion_slots": [
+    {
+      "id": "riser1_gpu_slot",
+      "slot": "PCIe 4.0 x16",
+      "signal": "x16",
+      "source": "CPU0",
+      "supports": "FHFL GPU",
+      "count": 1
+    },
+    {
+      "id": "riser1_pcie_slots",
+      "slot": "PCIe 4.0 x16",
+      "signal": "x8",
+      "source": "CPU0",
+      "supports": "FH PCIe Cards",
+      "count": 2
+    },
+    {
+      "id": "riser2_gpu_slot",
+      "slot": "PCIe 4.0 x16",
+      "signal": "x16",
+      "source": "CPU1",
+      "supports": "FHFL GPU",
+      "count": 1
+    },
+    {
+      "id": "riser2_pcie_slots",
+      "slot": "PCIe 4.0 x16",
+      "signal": "x8",
+      "source": "CPU1",
+      "supports": "FH PCIe Cards",
+      "count": 2
+    },
+    {
+      "id": "riser3_gpu_slot",
+      "slot": "PCIe 4.0 x16",
+      "signal": "x16",
+      "source": "CPU1",
+      "supports": "FHFL GPU",
+      "count": 1
+    },
+    {
+      "id": "ocp_3_0",
+      "slot": "OCP 3.0 x1",
+      "interface": "PCIe 4.0 x16",
+      "source": "CPU0",
+      "supports": [
+        "OCP 3.0 Mezzanine Card",
+        "NCSI"
+      ]
+    }
+  ],
+  "networking": {
+    "onboard_lan": false,
+    "lan_ports": {
+      "count": 2,
+      "type": "1000GBase-T"
+    },
+    "optional_modules": [
+      "NAD-101 M.2 LAN Module"
+    ]
+  },
+  "front_io": {
+    "usb_ports": 2,
+    "vga_ports": 1,
+    "power_led_button": 1,
+    "uid_led_button": 1,
+    "reset_button": 1,
+    "status_leds": [
+      "M.2",
+      "Alarm",
+      "LAN1",
+      "LAN2"
+    ],
+    "drive_bays": 12
+  },
+  "rear_io": {
+    "mgmt_port": {
+      "count": 1,
+      "type": "GbE RJ45"
+    },
+    "usb_ports": 2,
+    "com_ports": 1,
+    "vga_ports": 1,
+    "uid_led_button": 1
+  },
+  "power_supply": {
+    "type": "CRPS",
+    "capacity": "2000 W",
+    "redundancy": "1+1",
+    "efficiency": "80 PLUS Platinum"
+  },
+  "cooling": {
+    "cpu_cooling_modules": 2,
+    "cpu_cooling_type": "EVAC Air Cooling",
+    "supported_cpu_tdp": "350 W",
+    "fans": {
+      "count": 6,
+      "model": "6038",
+      "type": "hot_swap"
+    },
+    "air_duct": {
+      "count": 1,
+      "supports": "Full-Length GPU Cards"
+    }
+  },
+  "management": {
+    "bmc": "ASPEED AST2600",
+    "firmware": "AMI MegaRAC",
+    "protocols": [
+      "IPMI 2.0",
+      "DMTF Redfish API"
+    ],
+    "features": [
+      "Dual BIOS",
+      "Dual BMC Support"
+    ],
+    "mgmt_port": {
+      "type": "GbE RJ45",
+      "controller": "Realtek RTL8211FD-CG"
+    },
+    "micro_sd_slot": 1,
+    "monitoring": [
+      "Fan",
+      "Power Supply",
+      "CPU",
+      "HDD",
+      "RAID Telemetry"
+    ],
+    "notifications": [
+      "Secure Alarm Notifications",
+      "OEM Troubleshooting Alerts",
+      "Personal Notification Support"
+    ],
+    "remote_functions": [
+      "Hardware Component Management",
+      "Power On/Off",
+      "Boot Process Control",
+      "Management Logs",
+      "Audit Logs",
+      "Role-Based Management",
+      "KVM Integration",
+      "Fan Monitoring",
+      "Power Supply Monitoring",
+      "Memory Monitoring",
+      "CPU Monitoring",
+      "RAID Monitoring",
+      "NIC Monitoring",
+      "Failure Detection",
+      "Telemetry Streaming",
+      "Idle Server Detection"
+    ],
+    "remote_security": [
+      "LDAP Authentication",
+      "Local User Authentication",
+      "Role-Based Security"
+    ],
+    "alerting": [
+      "CPU Pre-Failure Alerts",
+      "Memory Pre-Failure Alerts",
+      "HDD Pre-Failure Alerts",
+      "SMTP Notifications"
+    ]
+  },
+  "security": {
+    "features": [
+      "TPM 2.0",
+      "Authenticated BIOS",
+      "Secure Boot",
+      "Silicon Root of Trust",
+      "Hardware Root of Trust",
+      "Disk Encryption",
+      "Signed Firmware Updates",
+      "Signed BIOS Core Updates",
+      "Malicious Firmware Scanning",
+      "Malicious Core-Free Design",
+      "Secured Configuration Upgrade",
+      "Secured Default Passwords",
+      "Secure Erase",
+      "Advanced Encryption Standard (AES)",
+      "Rapid OS Recovery"
+    ]
+  },
+  "bios": {
+    "type": "UEFI Compliant",
+    "features": [
+      "Software BIOS Flash EPROM Update",
+      "BIOS Settings Save and Restore",
+      "Local BIOS Update via USB",
+      "Secure Boot Support"
+    ]
+  },
+  "os_support": [
+    "Windows Server 2025",
+    "Windows Server 2022",
+    "Windows Server 2019",
+    "VMware vSphere 8.0",
+    "Ubuntu Server 24.04 LTS",
+    "Ubuntu Server 22.04 LTS",
+    "SUSE Linux Enterprise Server 15 (AMD64/Intel64)",
+    "SUSE Linux Enterprise Server 15 with Xen",
+    "SUSE Linux Enterprise Server 15 with KVM",
+    "Red Hat Enterprise Linux 8.6 - 8.x",
+    "Red Hat Enterprise Linux 9.0 - 9.x",
+    "Red Hat Enterprise Linux 10.0 - 10.x",
+    "Red Hat OpenShift Kubernetes",
+    "Red Hat OpenShift Virtualization",
+    "Red Hat OpenShift Container Platform 4.x",
+    "Red Hat Virtualization 4.x",
+    "Microsoft Hyper-V",
+    "Open Source Linux KVM"
+  ],
+  "environment": {
+    "operating_temp_c": "0°C to 35°C",
+    "non_operating_temp_c": "-20°C to 70°C",
+    "non_operating_humidity_pct": "5% to 85% (Non-Condensing)"
+  }
+}

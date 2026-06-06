@@ -1,0 +1,173 @@
+{
+  "product": "Vantageo 2240-RG",
+  "form_factor": "2U Rack Server",
+  "processor": {
+    "families": [
+      "Dual 5th Generation Intel Xeon Scalable Processors",
+      "Dual 4th Generation Intel Xeon Scalable Processors"
+    ],
+    "sockets": 2
+  },
+  "chipset": "Intel C741",
+  "memory": {
+    "dimm_slots": 16,
+    "memory_type": "DDR5 RDIMM",
+    "channels": "8-Channel"
+  },
+  "storage": {
+    "drive_bays": 12,
+    "drive_size": "3.5-inch",
+    "drive_type": "Hot-Swap",
+    "supported_drive_types": [
+      "SAS3",
+      "SATA"
+    ],
+    "sata_ports": 12,
+    "sata_speed": "6Gb/s",
+    "slimsas_connectors": 3,
+    "m2_slots": 2,
+    "m2_interface": "PCIe Gen4 x4",
+    "backplane": "12-Port 2U SAS3 TQ Backplane"
+  },
+  "raid": {
+    "controller": "Intel SATA RAID",
+    "supported_levels": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 10"
+    ]
+  },
+  "expansion_slots": [
+    {
+      "id": "slot_6",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU_0"
+    },
+    {
+      "id": "slot_5",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU_1"
+    },
+    {
+      "id": "slot_4",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU_1"
+    },
+    {
+      "id": "slot_3",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU_0"
+    },
+    {
+      "id": "slot_2",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU_0"
+    },
+    {
+      "id": "slot_1",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU_1"
+    }
+  ],
+  "networking": {
+    "lan_ports": {
+      "count": 2,
+      "speed": "1Gb/s",
+      "controller": "Intel I210-AT"
+    }
+  },
+  "video": {
+    "controller": "ASPEED AST2600",
+    "adapter": "2D Video Graphic Adapter",
+    "bus": "PCIe",
+    "max_resolution": "1920x1200 @ 60Hz, 32bpp"
+  },
+  "rear_io": {
+    "usb_ports": 2,
+    "vga_ports": 1,
+    "rj45_lan_ports": 2,
+    "rj45_serial_ports": 1,
+    "mgmt_lan_ports": 1,
+    "id_button": 1
+  },
+  "power_supply": {
+    "type": "Single Output",
+    "options": [
+      "800W",
+      "1000W"
+    ],
+    "redundancy": "Redundant",
+    "efficiency": "Titanium",
+    "pmbus_support": true
+  },
+  "cooling": {
+    "fans": {
+      "count": 3,
+      "size": "80mm",
+      "type": "Heavy Duty",
+      "speed_control": "PWM"
+    }
+  },
+  "management": {
+    "features": [
+      "Remote Monitoring",
+      "Remote Control",
+      "Enterprise Management Capabilities"
+    ]
+  },
+  "security": {
+    "features": [
+      "TPM"
+    ]
+  },
+  "tpm": {
+    "header_count": 1,
+    "interface": "SPI",
+    "optional_kit": "CTM010 TPM 2.0"
+  },
+  "environment": {
+    "operating_temp_c": {
+      "range": "5°C to 35°C"
+    },
+    "non_operating_temp_c": {
+      "range": "-40°C to 70°C"
+    },
+    "operating_humidity_pct": {
+      "range": "8% to 90%",
+      "condition": "Non-Condensing"
+    },
+    "non_operating_humidity_pct": {
+      "range": "5% to 95%",
+      "condition": "Non-Condensing"
+    }
+  },
+  "applications": [
+    "Data Centers",
+    "Cloud Infrastructure",
+    "Enterprise Applications",
+    "Professional Server Environments"
+  ],
+  "key_features": [
+    "Dual Intel Xeon Scalable Processor Support",
+    "High-Capacity DDR5 Memory",
+    "PCIe Gen5 Expansion",
+    "12 Hot-Swap Drive Bays",
+    "Integrated AST2600 Management Controller",
+    "Redundant Titanium Power Supply",
+    "Enterprise-Class Reliability",
+    "Scalable Architecture"
+  ]
+}

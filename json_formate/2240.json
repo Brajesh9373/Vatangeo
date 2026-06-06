@@ -1,0 +1,188 @@
+{
+  "product": "Vantageo 2240",
+  "form_factor": "2U Rack Server",
+  "dimensions": {
+    "width_mm": 438,
+    "height_mm": 87,
+    "depth_mm": 770,
+    "width_in": 17.2,
+    "height_in": 3.4,
+    "depth_in": 30.3
+  },
+  "processor": {
+    "families": [
+      "Dual 4th/5th Gen Intel Xeon Scalable Processors"
+    ],
+    "max_tdp_w": 350
+  },
+  "chipset": "Intel C741 Chipset",
+  "memory": {
+    "dimm_slots": 32,
+    "channels": "16",
+    "dpc": "2DPC",
+    "supported_modules": [
+      "RDIMM",
+      "3DS-RDIMM"
+    ],
+    "max_capacity_per_dimm": {
+      "RDIMM": "96GB",
+      "3DS-RDIMM": "256GB"
+    },
+    "max_frequency": {
+      "5th_gen": {
+        "1DPC": "5600 MT/s",
+        "2DPC": "4400 MT/s"
+      },
+      "4th_gen": {
+        "1DPC": "4800 MT/s",
+        "2DPC": "4400 MT/s"
+      }
+    }
+  },
+  "storage": {
+    "drive_bays": 12,
+    "drive_type": "2.5\" / 3.5\" Hybrid Hot-Swap",
+    "supported_interfaces": [
+      "SATA 3.0",
+      "SAS",
+      "U.2 PCIe 4.0 NVMe"
+    ],
+    "sas_note": "SAS card required for SAS device support"
+  },
+  "internal_storage": {
+    "m2_slots": 2,
+    "interface": "M.2 M-Key (PCIe 3.0 x2)",
+    "source": "PCH",
+    "supported_sizes": [
+      "2280",
+      "22110"
+    ]
+  },
+  "raid": {
+    "controller": "Intel SATA RAID",
+    "supported_levels": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 10"
+    ],
+    "vroc_header": "1 x VROC header (Intel VROC key supported)"
+  },
+  "expansion_slots": [
+    {
+      "id": "riser1",
+      "slot": "PCIe 4.0 x16",
+      "signal": "PCIe 4.0 x16",
+      "source": "CPU0",
+      "supports": "FHFL GPU Card",
+      "count": 1
+    },
+    {
+      "id": "riser1",
+      "slot": "PCIe 4.0 x16",
+      "signal": "PCIe 4.0 x8",
+      "source": "CPU0",
+      "supports": "FH PCIe Card",
+      "count": 2
+    },
+    {
+      "id": "riser2",
+      "slot": "PCIe 4.0 x16",
+      "signal": "PCIe 4.0 x16",
+      "source": "CPU1",
+      "supports": "FHFL GPU Card",
+      "count": 1
+    },
+    {
+      "id": "riser2",
+      "slot": "PCIe 4.0 x16",
+      "signal": "PCIe 4.0 x8",
+      "source": "CPU1",
+      "supports": "FH PCIe Card",
+      "count": 2
+    },
+    {
+      "id": "riser3",
+      "slot": "PCIe 4.0 x16",
+      "signal": "PCIe 4.0 x16",
+      "source": "CPU1",
+      "supports": "FHFL GPU Card",
+      "count": 1
+    },
+    {
+      "id": "ocp_3_0",
+      "slot": "OCP 3.0 x1",
+      "interface": "PCIe 4.0 x16",
+      "source": "CPU0",
+      "supports": [
+        "OCP 3.0 Mezzanine Card",
+        "NCSI"
+      ]
+    }
+  ],
+  "networking": {
+    "onboard_lan": "No onboard LAN",
+    "lan_ports": {
+      "type": "2 x 1000GBase-T Ethernet Ports"
+    },
+    "optional_module": "M.2 LAN Module NAD-101"
+  },
+  "front_io": {
+    "usb_ports": "2 x USB 2.0 Type-A",
+    "vga_ports": 1,
+    "power_led_button": 1,
+    "uid_led_button": 1,
+    "reset_button": 1,
+    "status_leds": [
+      "M.2",
+      "Alarm",
+      "LAN 1",
+      "LAN 2"
+    ],
+    "drive_bays": "12 x Hot-Swap 2.5\" / 3.5\" Bays"
+  },
+  "rear_io": {
+    "mgmt_port": "1 x GbE RJ45",
+    "usb_ports": "2 x USB 2.0 Type-A",
+    "com_port": "1 x RJ45",
+    "vga_ports": 1,
+    "uid_led_button": 1
+  },
+  "power_supply": {
+    "capacity": "2000W CRPS",
+    "redundancy": "1+1",
+    "efficiency": "80 PLUS Platinum"
+  },
+  "cooling": {
+    "cpu_cooling": "2 x EVAC Air Cooling Modules",
+    "supported_cpu_tdp": "Up to 350W",
+    "system_fans": "6 x 6038 Hot-Swap Fans",
+    "air_duct": "Supports Full-Length GPU Cards"
+  },
+  "management": {
+    "bmc": "ASPEED AST2600",
+    "firmware": "AMI MegaRAC",
+    "protocols": [
+      "IPMI 2.0",
+      "DMTF Redfish API"
+    ],
+    "features": [
+      "Dual BIOS",
+      "Dual BMC Support"
+    ],
+    "mgmt_port": "1 x GbE RJ45 (Realtek RTL8211FD-CG)",
+    "micro_sd_slot": "1 x MicroSD Card Slot (BMC Log)"
+  },
+  "security": {
+    "tpm": "TPM 2.0"
+  },
+  "tpm": {
+    "header": "1 x TPM Header (SPI Interface)",
+    "version": "TPM 2.0"
+  },
+  "environment": {
+    "operating_temp_c": "0°C to 35°C",
+    "non_operating_temp_c": "-20°C to 70°C",
+    "non_operating_humidity_pct": "5% to 85% (Non-Condensing)"
+  }
+}

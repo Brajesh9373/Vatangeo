@@ -1,0 +1,186 @@
+{
+  "product": "Vantageo 2240-RE",
+  "form_factor": "2U Rack Server",
+  "dimensions": {
+    "width_mm": 432,
+    "height_mm": 87.6,
+    "depth_mm": 780,
+    "description": "Standard 19-inch Rack (>= 1m Deep), excluding flanges and guide rails"
+  },
+  "weight": {
+    "value": 40,
+    "unit": "kg"
+  },
+  "processor": {
+    "families": [
+      "1 x Intel Xeon 4th Generation Scalable Processor",
+      "2 x Intel Xeon 4th Generation Scalable Processor",
+      "1 x Intel Xeon 5th Generation Scalable Processor",
+      "2 x Intel Xeon 5th Generation Scalable Processor"
+    ],
+    "platform": "Intel Eagle Stream"
+  },
+  "chipset": "Intel C741",
+  "memory": {
+    "dimm_slots": 32,
+    "memory_type": "DDR5",
+    "max_speed": "5600 MT/s"
+  },
+  "memory_dimms_supported": [
+    {
+      "capacity": "16 GB",
+      "type": "DDR5-5600"
+    },
+    {
+      "capacity": "32 GB",
+      "type": "DDR5-5600"
+    },
+    {
+      "capacity": "64 GB",
+      "type": "DDR5-5600"
+    },
+    {
+      "capacity": "128 GB",
+      "type": "DDR5-5600"
+    },
+    {
+      "capacity": "256 GB",
+      "type": "DDR5-5600"
+    }
+  ],
+  "interconnect": {
+    "upi_links": 4,
+    "max_upi_rate": "20 GT/s per link",
+    "dmi_channels": "x8 High-Speed DMI"
+  },
+  "storage": {
+    "max_2_5_bays": 45,
+    "max_3_5_bays": 20,
+    "max_nvme_ssds": 34,
+    "raid_levels": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 6",
+      "RAID 10",
+      "RAID 50",
+      "RAID 60"
+    ],
+    "power_off_protection": true
+  },
+  "raid": {
+    "controller": "Integrated",
+    "supported_levels": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 6",
+      "RAID 10",
+      "RAID 50",
+      "RAID 60"
+    ]
+  },
+  "expansion_slots": [
+    {
+      "id": "pcie_total",
+      "total_slots": 20,
+      "ocp_slots": 2,
+      "standard_slots": 18
+    }
+  ],
+  "networking": {
+    "ocp_interfaces": 2,
+    "ocp_speed": "PCIe 5.0 x8",
+    "optional_pcie_5_x16": 2,
+    "onboard_ocp_nic": 2
+  },
+  "video": {
+    "integrated": true,
+    "optional_pcie": true
+  },
+  "front_io": {
+    "usb_front_2_0": 1,
+    "usb_front_3_0": 1,
+    "vga_front": 1
+  },
+  "rear_io": {
+    "usb_rear_3_0": 2,
+    "usb_internal_2_0": 1,
+    "vga_rear": 1,
+    "serial_ports": 1
+  },
+  "power_supply": {
+    "redundancy": "1+1 Hot-Swappable Redundant Power Supplies",
+    "efficiency": [
+      "80 PLUS Platinum",
+      "80 PLUS Titanium"
+    ],
+    "options": [
+      "550W",
+      "800W",
+      "1200W",
+      "1600W",
+      "2000W",
+      "2700W"
+    ],
+    "input_power": [
+      "110V AC",
+      "220V AC",
+      "240V High-Voltage DC",
+      "336V High-Voltage DC",
+      "-48V DC"
+    ]
+  },
+  "cooling": {
+    "fan_groups": 4,
+    "redundancy": "N+1",
+    "features": [
+      "High-Efficiency Fans",
+      "Intelligent Heat Dissipation System"
+    ]
+  },
+  "management": {
+    "dedicated_mgmt_interfaces": 1,
+    "mgmt_port_type": "Independent Gigabit Ethernet (GE)"
+  },
+  "security": {
+    "features": [
+      "TPM (Trusted Platform Module)",
+      "Authenticated BIOS"
+    ]
+  },
+  "os_support": [
+    "Microsoft Windows Server",
+    "Red Hat Enterprise Linux",
+    "SUSE Enterprise Linux",
+    "VMware ESXi",
+    "Ubuntu"
+  ],
+  "environment": {
+    "operating_temp_c": {
+      "min": 5,
+      "max": 45
+    },
+    "operating_humidity_pct": {
+      "range": "8% - 90% RH",
+      "condensation": false
+    },
+    "storage_temp_c": {
+      "min": -40,
+      "max": 65
+    },
+    "storage_humidity_pct": {
+      "range": "5% - 95% RH",
+      "condensation": false
+    },
+    "max_altitude_m": 3000,
+    "altitude_derating": {
+      "start_altitude_meters": 900,
+      "temperature_reduction": "1°C per additional 300m"
+    },
+    "altitude_limitation": {
+      "above_meters": 3000,
+      "restriction": "Mechanical hard disks cannot be configured"
+    }
+  }
+}

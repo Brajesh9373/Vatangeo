@@ -1,0 +1,16 @@
+# Pinned to the versions installed in the dev environment. Bump as
+# upstream releases — re-run `python -c "import fastapi, uvicorn,
+# pydantic, httpx; print(fastapi.__version__, uvicorn.__version__,
+# pydantic.VERSION, httpx.__version__)"` to get the active versions.
+
+fastapi==0.124.4
+uvicorn[standard]==0.38.0
+pydantic==2.12.5
+httpx==0.28.1
+
+# falkordb is OPTIONAL. The backend is auto-selected at runtime: if
+# FalkorDB is reachable, we use it; otherwise we fall back to the JSON
+# files in json_formate/. Uncomment the next line to install the
+# falkordb driver (pulls in `redis`).
+#
+# falkordb==7.0.0

@@ -1,0 +1,239 @@
+{
+  "product": "Vantageo 1240-RG",
+  "form_factor": "1U Rack Server",
+  "processor": {
+    "families": [
+      "5th Generation Intel Xeon Scalable Processors",
+      "4th Generation Intel Xeon Scalable Processors",
+      "Intel Xeon CPU Max Series"
+    ],
+    "sockets": 1,
+    "max_tdp_w": 350,
+    "socket_type": "LGA 4677 Socket E",
+    "socket_count": 1
+  },
+  "chipset": "Intel C741",
+  "memory": {
+    "dimm_slots": 8,
+    "memory_type": "DDR5",
+    "channels": "8-Channel",
+    "supported_modules": [
+      "RDIMM",
+      "3DS RDIMM"
+    ],
+    "max_capacity_per_dimm": {
+      "RDIMM": "96GB",
+      "3DS_RDIMM": "256GB"
+    },
+    "max_frequency": {
+      "5th_gen_xeon": "5600 MT/s",
+      "4th_gen_xeon": "4800 MT/s",
+      "xeon_max_series": "4800 MT/s"
+    }
+  },
+  "storage": {
+    "drive_bays": 8,
+    "drive_size": "3.5-inch",
+    "drive_type": "Hot-Swap",
+    "sata_ports": 12,
+    "sata_speed": "6Gb/s",
+    "slimsas_connectors": 3
+  },
+  "internal_storage": {
+    "m2_slots": 1,
+    "key_type": "M-Key",
+    "interface": "PCIe Gen3 x4",
+    "source": "PCH",
+    "supported_sizes": [
+      "2280"
+    ]
+  },
+  "raid": {
+    "controller": "Intel SATA RAID",
+    "supported_levels": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 10"
+    ]
+  },
+  "expansion_slots": [
+    {
+      "id": "slot_7",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU"
+    },
+    {
+      "id": "slot_6",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU"
+    },
+    {
+      "id": "slot_5",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16",
+      "source": "CPU"
+    },
+    {
+      "id": "slot_4",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16 or x8",
+      "source": "CPU",
+      "shared_with": "slot_3"
+    },
+    {
+      "id": "slot_3",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x8",
+      "source": "CPU"
+    },
+    {
+      "id": "slot_2",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x16 or x8",
+      "source": "CPU",
+      "shared_with": "slot_1"
+    },
+    {
+      "id": "slot_1",
+      "type": "PCIe x16",
+      "generation": "Gen5",
+      "lanes": "x8",
+      "source": "CPU"
+    }
+  ],
+  "networking": {
+    "lan_ports": {
+      "count": 2,
+      "speed": "1Gb/s",
+      "controller": "Intel I210-AT"
+    },
+    "management_lan": {
+      "count": 1,
+      "speed": "10/100/1000 Mbps"
+    },
+    "ncsi_support": true
+  },
+  "video": {
+    "controller": "ASPEED AST2600",
+    "vga_ports": 1
+  },
+  "rear_io": {
+    "usb_ports": 4,
+    "vga_ports": 1,
+    "com_ports": 1,
+    "rj45_ports": 2,
+    "mgmt_lan_ports": 1,
+    "id_button": 1
+  },
+  "internal_io": {
+    "power_connectors": {
+      "24pin_atx": 1,
+      "8pin_atx_12v": 2
+    },
+    "fan_headers": {
+      "cpu_fan": 1,
+      "system_fan": 5
+    },
+    "usb_headers": {
+      "usb_3_2_gen1": 1
+    },
+    "storage_connectors": {
+      "m2_slots": 1,
+      "slimsas": 3,
+      "vroc": 1
+    },
+    "headers": {
+      "front_panel_header": 1,
+      "backplane_board_header": 1,
+      "pmbus_header": 1,
+      "ipmb_header": 1,
+      "tpm_header": 1
+    }
+  },
+  "power_supply": {
+    "type": "Redundant Power Supply",
+    "options": [
+      "800W",
+      "1000W",
+      "1200W",
+      "1600W"
+    ],
+    "connectors": {
+      "24pin_atx": 1,
+      "8pin_atx_12v": 2
+    }
+  },
+  "management": {
+    "bmc": "ASPEED AST2600 Baseboard Management Controller",
+    "software": "Vantageo Management Console",
+    "features": [
+      "Web Interface Dashboard",
+      "HTML5 KVM",
+      "Sensor Monitor",
+      "Sensor Reading History Data",
+      "FRU Information",
+      "SEL Log (Linear/Circular Storage Policy)",
+      "Hardware Inventory",
+      "Fan Profile",
+      "System Firewall",
+      "Power Consumption Monitoring",
+      "Power Control",
+      "Advanced Power Capping",
+      "LDAP Support",
+      "Active Directory Support",
+      "RADIUS Support",
+      "Backup & Restore Configuration",
+      "Remote BIOS Update",
+      "Remote BMC Update",
+      "Remote CPLD Update",
+      "Event Log Filter",
+      "User Management",
+      "Media Redirection Settings",
+      "PAM Order Settings",
+      "SSL Settings",
+      "SMTP Settings"
+    ]
+  },
+  "security": {
+    "features": [
+      "TPM"
+    ]
+  },
+  "tpm": {
+    "header_count": 1,
+    "interface": "SPI",
+    "optional_kit": "CTM010 TPM 2.0"
+  },
+  "os_support": [
+    "Windows Server 2022 (x64)"
+  ],
+  "environment": {
+    "operating_temp_c": {
+      "min": 10,
+      "max": 40
+    },
+    "operating_humidity_pct": {
+      "min": 8,
+      "max": 80,
+      "condition": "Non-Condensing"
+    },
+    "non_operating_temp_c": {
+      "min": -40,
+      "max": 60
+    },
+    "non_operating_humidity_pct": {
+      "min": 20,
+      "max": 95,
+      "condition": "Non-Condensing"
+    }
+  }
+}

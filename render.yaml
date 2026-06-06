@@ -1,0 +1,51 @@
+# Render Blueprint — defines the free web service.
+# Two ways to apply this:
+#   1. Connect your GitHub repo to Render and select "Apply from render.yaml"
+#      (the dashboard reads this file and provisions the service).
+#   2. Use the Render CLI: `render blueprint launch`.
+#
+# After the service is created, set the secrets in the Render dashboard
+# (Environment → Add Secret). API keys marked `sync: false` are NOT
+# committed to git — they live in Render's secret store.
+#
+# Required secrets to add manually:
+#   NVIDIA_API_KEY     — your NVIDIA NIM API key (or OPENAI_API_KEY for
+#                        commandcode provider; the env var name follows
+#                        the provider in VANTAGEO_LLM_PROVIDER)
+
+services:
+  - type: web
+    name: vantageo
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      cd frontend && npm install --no-audit --no-fund && npm run build
+
+    startCommand: uvicorn app:APP --host 0.0.0.0 --port $PORT
+
+    healthCheckPath: /api/health
+
+    envVars:
+      # --- Runtime configuration ---
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: VANTAGEO_DATA_BACKEND
+        value: json
+      - key: VANTAGEO_LLM_PROVIDER
+        value: nvidia
+      - key: VANTAGEO_LLM_MODEL
+        value: meta/llama-3.3-70b-instruct
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: VANTAGEO_LOG_JSON
+        value: "0"
+
+      # --- Secrets (sync: false means set in Render dashboard) ---
+      - key: NVIDIA_API_KEY
+        sync: false
