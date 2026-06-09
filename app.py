@@ -31,7 +31,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from lib.graph_queries import tool_compare, tool_list_models
-from lib.llm import DEFAULT_PROVIDER, call_llm, stream_llm_text
+from lib.llm import DEFAULT_PROVIDER, call_llm_async, stream_llm_text
 from lib.logging_setup import (
     get_request_id,
     set_request_id,
@@ -179,7 +179,7 @@ async def _stream_chat(messages_in: list[dict], request_id: str) -> AsyncGenerat
     try:
         messages = [{"role": "system", "content": SYSTEM_PROMPT}] + messages_in
 
-        resp = call_llm(messages, TOOL_DEFINITIONS, CONFIG_PATH)
+        resp = await call_llm_async(messages, TOOL_DEFINITIONS, CONFIG_PATH)
         choice = resp.get("choices", [{}])[0]
         msg = choice.get("message", {})
 
