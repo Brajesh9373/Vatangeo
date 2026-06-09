@@ -166,13 +166,17 @@ else:
     def _fetch_product_sections(canonical: str) -> dict:
         """Fetch all product component sections in batched queries.
         Query 1: single-value relationships (form_factor, processor, chipset,
-                 memory, storage, raid, psu, cooling, management, tpm).
-        Query 2: multi-value relationships (slots, DIMMs, security, OS, features,
-                 processor families).
-        Query 3: networking, video, front/rear IO, interconnect, BIOS, firmware."""
+                 memory, storage, raid, psu, cooling, management, tpm,
+                 physical, bios).
+        Query 2: multi-value relationships via UNION ALL (families, DIMMs,
+                 slots, security, OS, features).
+        Query 3: remaining single-value components (networking, video,
+                 front/rear IO, interconnect, firmware).
+
+        Down from the original 9 sequential queries to 3."""
         q = _safe_quote(canonical)
 
-        # Batch 1 — single-value components
+        # Batch 1 — all single-value components
         b1 = _row(f"""
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:HAS_FORM_FACTOR]->(f:FormFactor)
@@ -195,38 +199,47 @@ else:
 
         row1 = b1[0]
 
-        # Batch 2a — multi-value components (each in its own query to avoid cross-products)
-        b2_families = _row(f"""
+        # Batch 2 — all multi-value components in a single UNION ALL query.
+        # Each sub-query returns a distinct _src column so _assemble_spec
+        # can tell which rows belong to which relationship.
+        b2 = _row(f"""
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:SUPPORTS_FAMILY]->(pf:ProcessorFamily)
-            RETURN pf.full_name AS full_name
-        """)
-        b2_dimms = _row(f"""
+            RETURN 'families' AS _src, pf.full_name AS key1, NULL AS key2, NULL AS key3,
+                   NULL AS key4, NULL AS key5, NULL AS key6
+            UNION ALL
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:SUPPORTS_DIMM]->(d:DIMM)
-            RETURN d.capacity AS capacity, d.dimm_type AS dimm_type
-        """)
-        b2_slots = _row(f"""
+            RETURN 'dimms' AS _src, d.capacity AS key1, d.dimm_type AS key2, NULL AS key3,
+                   NULL AS key4, NULL AS key5, NULL AS key6
+            UNION ALL
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:HAS_SLOT]->(sl:Slot)
-            RETURN sl.slot AS slot, sl.generation AS gen, sl.signal AS sig,
-                   sl.source AS source, sl.supports AS supports, sl.count AS count
-        """)
-        b2_security = _row(f"""
+            RETURN 'slots' AS _src, sl.slot AS key1, sl.generation AS key2,
+                   sl.signal AS key3, sl.source AS key4, sl.supports AS key5, sl.count AS key6
+            UNION ALL
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:HAS_SECURITY]->(sf:SecurityFeature)
-            RETURN sf.name AS name
-        """)
-        b2_os = _row(f"""
+            RETURN 'security' AS _src, sf.name AS key1, NULL AS key2, NULL AS key3,
+                   NULL AS key4, NULL AS key5, NULL AS key6
+            UNION ALL
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:SUPPORTS_OS]->(os:OS)
-            RETURN os.full_name AS full_name
-        """)
-        b2_features = _row(f"""
+            RETURN 'os' AS _src, os.full_name AS key1, NULL AS key2, NULL AS key3,
+                   NULL AS key4, NULL AS key5, NULL AS key6
+            UNION ALL
             MATCH (p:Product {{product: '{q}'}})
             OPTIONAL MATCH (p)-[:HAS_FEATURE]->(kf:KeyFeature)
-            RETURN kf.description AS description
+            RETURN 'features' AS _src, kf.description AS key1, NULL AS key2, NULL AS key3,
+                   NULL AS key4, NULL AS key5, NULL AS key6
         """)
+
+        # Split b2 rows by _src back into per-type groups
+        b2_by_src: dict[str, list[dict]] = {}
+        for row in b2:
+            src = row.pop("_src", None)
+            if src:
+                b2_by_src.setdefault(src, []).append(row)
 
         # Batch 3 — remaining single-value components
         b3 = _row(f"""
@@ -240,7 +253,16 @@ else:
             RETURN net, vid, fio, rio, ic, fw
         """)
 
-        return _assemble_spec(canonical, row1, b2_families, b2_dimms, b2_slots, b2_security, b2_os, b2_features, b3)
+        return _assemble_spec(
+            canonical, row1,
+            b2_by_src.get("families", []),
+            b2_by_src.get("dimms", []),
+            b2_by_src.get("slots", []),
+            b2_by_src.get("security", []),
+            b2_by_src.get("os", []),
+            b2_by_src.get("features", []),
+            b3,
+        )
 
     def _first_prop(rows, key=None):
         """Extract first row's properties dict, or a single value from a key."""
@@ -308,11 +330,11 @@ else:
         cpu = _val("cpu")
         if cpu: result["processor"] = _clean(cpu)
 
-        # Processor families
+        # Processor families (b2 rows use key1 = full_name)
         families = []
         seen = set()
         for row in b2_families:
-            v = row.get("full_name")
+            v = row.get("key1")
             if v and v not in seen:
                 seen.add(v)
                 families.append(v)
@@ -325,12 +347,12 @@ else:
         mem = _val("mem")
         if mem: result["memory"] = _clean(mem)
 
-        # DIMMs
+        # DIMMs (b2 rows: key1=capacity, key2=dimm_type)
         dimms = []
         seen_dimm = set()
         for row in b2_dimms:
-            cap = row.get("capacity")
-            dtype = row.get("dimm_type")
+            cap = row.get("key1")
+            dtype = row.get("key2")
             if cap and (cap, dtype) not in seen_dimm:
                 seen_dimm.add((cap, dtype))
                 dimms.append({"capacity": cap, "type": dtype})
@@ -343,9 +365,15 @@ else:
         ra = _val("ra")
         if ra: result["raid"] = {"controller": ra.get("controller", ""), "levels": ra.get("levels", "")}
 
-        # Expansion slots
+        # Expansion slots (b2 rows: key1=slot, key2=gen, key3=sig, key4=source, key5=supports, key6=count)
         for row in b2_slots:
-            clean = {k: v for k, v in row.items() if v is not None and v != "" and v != 0 and v != "0"}
+            clean = {}
+            mapping = {"key1": "slot", "key2": "gen", "key3": "sig",
+                       "key4": "source", "key5": "supports", "key6": "count"}
+            for k, label in mapping.items():
+                v = row.get(k)
+                if v is not None and v != "" and v != 0 and v != "0":
+                    clean[label] = v
             if clean: result["expansion_slots"].append(clean)
 
         # Networking (from b3)
@@ -362,11 +390,11 @@ else:
         # Management
         result["management"]["bmc"] = _val("bm", "name")
 
-        # Security
+        # Security (b2 rows: key1=name)
         security = []
         seen_sec = set()
         for row in b2_security:
-            v = row.get("name")
+            v = row.get("key1")
             if v and v not in seen_sec:
                 seen_sec.add(v)
                 security.append(v)
@@ -378,21 +406,21 @@ else:
         # BIOS
         result["bios"] = _clean(_val("bios"))
 
-        # OS
+        # OS (b2 rows: key1=full_name)
         os_list = []
         seen_os = set()
         for row in b2_os:
-            v = row.get("full_name")
+            v = row.get("key1")
             if v and v not in seen_os:
                 seen_os.add(v)
                 os_list.append(v)
         result["os_support"] = os_list
 
-        # Features
+        # Features (b2 rows: key1=description)
         features = []
         seen_feat = set()
         for row in b2_features:
-            v = row.get("description")
+            v = row.get("key1")
             if v and v not in seen_feat:
                 seen_feat.add(v)
                 features.append(v)
@@ -524,10 +552,28 @@ else:
                 "use_case": use_case,
             }.items() if v
         }
+
+        # Return lightweight summaries instead of full specs to reduce
+        # the context payload sent to the second LLM call.
+        summaries = {}
+        for m in models:
+            canonical = m[len("Vantageo "):] if m.startswith("Vantageo ") else m
+            spec = tool_get_spec(canonical)
+            if "error" in spec:
+                summaries[m] = {"model": m, "error": spec["error"]}
+            else:
+                summaries[m] = {
+                    "model": m,
+                    "form_factor": spec.get("form_factor", ""),
+                    "processor": spec.get("processor", {}).get("model", ""),
+                    "memory_slots": spec.get("memory", {}).get("slots", ""),
+                    "memory_type": spec.get("memory", {}).get("type", ""),
+                    "storage_bays": spec.get("storage", {}).get("bays", ""),
+                }
         return {
             "matched": len(models),
             "filters": applied,
-            "models": {m: tool_get_spec(m[len("Vantageo "):] if m.startswith("Vantageo ") else m) for m in models},
+            "models": summaries,
         }
 
     def tool_compare(products: list[str]) -> dict:

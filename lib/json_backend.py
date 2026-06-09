@@ -253,13 +253,31 @@ def tool_find_by_requirement(
             "use_case": use_case,
         }.items() if v
     }
+
+    # Return lightweight summaries instead of full specs to reduce
+    # the context payload sent to the second LLM call.
+    summaries = {}
+    for m in matches:
+        raw = products.get(m, {})
+        proc = raw.get("processor", {}) if isinstance(raw.get("processor"), dict) else {}
+        mem = raw.get("memory", {}) if isinstance(raw.get("memory"), dict) else {}
+        st = raw.get("storage", {}) if isinstance(raw.get("storage"), dict) else {}
+        summaries[m] = {
+            "model": m,
+            "form_factor": raw.get("form_factor", ""),
+            "processor": proc.get("model", "") or proc.get("name", ""),
+            "memory_slots": mem.get("dimm_slots", ""),
+            "memory_type": mem.get("memory_type", ""),
+            "storage_bays": (
+                (st.get("drive_bays") or 0)
+                + (st.get("max_2_5_bays") or 0)
+                + (st.get("max_3_5_bays") or 0)
+            ),
+        }
     return {
         "matched": len(matches),
         "filters": applied,
-        "models": {
-            m: tool_get_spec(m[len("Vantageo "):] if m.startswith("Vantageo ") else m)
-            for m in matches
-        },
+        "models": summaries,
     }
 
 

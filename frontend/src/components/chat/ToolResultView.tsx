@@ -56,7 +56,9 @@ export default function ToolResultView({ tool, args, result }: Props) {
     return <CompareBlock data={r} isDark={isDark} />;
   }
 
-  if (tool === 'list_products' || tool === 'find_by_requirement') {
+  if (tool === 'list_products') return null;
+
+  if (tool === 'find_by_requirement') {
     return <ProductList data={r} isDark={isDark} />;
   }
 
