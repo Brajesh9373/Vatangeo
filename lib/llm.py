@@ -46,7 +46,7 @@ _RETRY_BASE_DELAY = 0.8  # seconds; doubled on each attempt
 # Per-phase timeouts. The total wall-clock for a streaming call is bounded
 # by (read * num_chunks); in practice the 60s read timeout covers the
 # inter-token gaps, with a fast connect budget.
-_STREAM_TIMEOUT = httpx.Timeout(connect=10, read=60, write=10, pool=10)
+_STREAM_TIMEOUT = httpx.Timeout(connect=10, read=120, write=10, pool=10)
 _NONSTREAM_TIMEOUT = 60.0
 
 # ---- Config cache (avoids re-reading the JSON file on every LLM call) ----
@@ -132,7 +132,7 @@ def _build_body(
         'model': model,
         'messages': messages,
         'temperature': 0.3,
-        'max_tokens': 2000,
+        'max_tokens': 4000,
     }
     if stream:
         body['stream'] = True
@@ -277,7 +277,7 @@ async def stream_llm_text(
         'model': model,
         'messages': messages,
         'temperature': 0.3,
-        'max_tokens': 2000,
+        'max_tokens': 4000,
         'stream': True,
     }
     if prov.get('extra_fields'):
